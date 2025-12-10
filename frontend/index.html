@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI-Powered RFP Management - Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI-Powered RFP Management (Frontend)</h1>
+    <p class="note">
+      Backend must be running at <code>http://localhost:4000</code>.
+    </p>
+
+    <section>
+      <h2>1. Create RFP from Natural Language</h2>
+      <textarea id="rfpText" rows="5" placeholder="Describe what you want to procure..."></textarea>
+      <button id="createRfpBtn">Create RFP</button>
+      <pre id="rfpResult"></pre>
+    </section>
+
+    <section>
+      <h2>2. Vendors</h2>
+      <div class="flex">
+        <div class="panel">
+          <h3>Add Vendor</h3>
+          <input id="vendorName" placeholder="Vendor name" />
+          <input id="vendorEmail" placeholder="Vendor email" />
+          <input id="vendorCategory" placeholder="Category (optional)" />
+          <input id="vendorNotes" placeholder="Notes (optional)" />
+          <button id="addVendorBtn">Add Vendor</button>
+        </div>
+        <div class="panel">
+          <h3>Vendor List</h3>
+          <button id="refreshVendorsBtn">Refresh Vendors</button>
+          <ul id="vendorList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Proposals & Comparison</h2>
+      <div class="panel">
+        <label>RFP ID: <input id="rfpIdForProposals" /></label>
+        <button id="loadProposalsBtn">Load Proposals</button>
+      </div>
+
+      <div class="panel">
+        <h3>Paste Vendor Email as Proposal</h3>
+        <label>Vendor ID: <input id="vendorIdForEmailProposal" /></label>
+        <textarea id="vendorEmailBody" rows="4" placeholder="Paste vendor email body here..."></textarea>
+        <button id="createProposalFromEmailBtn">Create Proposal from Email</button>
+      </div>
+
+      <div class="panel">
+        <h3>Poll Email Inbox (demo)</h3>
+        <p>Uses IMAP inbox configured in backend .env and attaches proposals to given RFP + Vendor.</p>
+        <label>RFP ID: <input id="pollRfpId" /></label>
+        <label>Vendor ID: <input id="pollVendorId" /></label>
+        <button id="pollEmailBtn">Poll Inbox</button>
+      </div>
+
+      <div class="panel">
+        <h3>Proposals List</h3>
+        <pre id="proposalsResult"></pre>
+      </div>
+
+      <div class="panel">
+        <h3>AI Comparison</h3>
+        <button id="compareBtn">Run AI Comparison for RFP</button>
+        <pre id="comparisonResult"></pre>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
