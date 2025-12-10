@@ -1,5 +1,3 @@
-// backend/routes/email.js
-
 const express = require("express");
 const db = require("../db");
 const { pollInboxOnce } = require("../emailService");
@@ -7,18 +5,7 @@ const { parseVendorResponse } = require("../aiService");
 
 const router = express.Router();
 
-/**
- * SEND RFP EMAILS (DEMO MODE — NO REAL SMTP NEEDED)
- *
- * POST /api/email/send-rfp
- * Body: { rfp_id, vendor_ids: [1, 2, ...] }
- *
- * For the assignment demo:
- *  - Loads vendors from DB
- *  - Creates the RFP email text
- *  - Logs emails to console instead of sending
- *  - Always returns success
- */
+
 router.post("/send-rfp", (req, res) => {
   const { rfp_id, vendor_ids } = req.body;
 
@@ -43,13 +30,13 @@ router.post("/send-rfp", (req, res) => {
         });
       }
 
-      // Email text (generic for demo)
+      
       const rfpText =
         `RFP ID: ${rfp_id}\n\n` +
         `This is an RFP request sent from the AI-powered RFP system.\n` +
         `Please reply with your total price, delivery time, warranty, and payment terms.\n`;
 
-      // DEMO: Log emails instead of sending via SMTP
+      
       console.log("\n\n===== MOCK EMAIL SENDING START =====");
       console.log("RFP ID:", rfp_id);
 
@@ -71,11 +58,7 @@ router.post("/send-rfp", (req, res) => {
   );
 });
 
-/**
- * POLL INBOX (SAFE MODE)
- * No IMAP errors will be shown.
- * Always returns a clean response.
- */
+
 router.post("/poll", async (req, res) => {
   const { rfp_id, vendor_id } = req.body;
 
@@ -88,7 +71,7 @@ router.post("/poll", async (req, res) => {
   try {
     emails = await pollInboxOnce();
   } catch (e) {
-    // IMAP not configured → safe mode, no errors
+    
     emails = [];
   }
 
@@ -155,7 +138,6 @@ router.post("/poll", async (req, res) => {
         );
       });
     } catch (err) {
-      // Skip faulty email, continue
     }
   }
 
